@@ -1,40 +1,31 @@
-import React, {useState} from 'react';
-import {View, FlatList, StyleSheet, Text, Switch, } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Text, Button, } from 'react-native';
 
-const data = [
-    {id:0, name:'CafeTimes', isFavorite: true},
-    {id:1, name:'burgerKing', isFavorite: false},
-    {id:1, name:'cafeSun', isFavorite: false},
-    {id:3, name:'Worldscafe', isFavorite: true},
-    {id:4, name:'kfc', isFavorite: false},
-    {id:5, name:'starbucks', isFavorite: true},
-];
+
 
 function App() {
 
-    const[cafeList, setCafeList] = useState(data);
-    const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+    const [number, setNumber] = useState(0);
 
+    const [counter, setCounter] = useState(100);
 
-    function onFavroiteChange(isFavoriteSelected) {
-        setShowOnlyFavorites(isFavoriteSelected);
+    useEffect(() => {
+        console.log('number updated');
+    }, [number]);
 
-        isFavoriteSelected
-        ? setCafeList(cafeList.filter(cafe => cafe.isFavorite))
-        : setCafeList(data);
-    }
-
+    useEffect(() => {
+        console.log('counter updated');
+    },[counter]);
+    
     return (
         <View>
-            <View>
-                <Text>Show Only Favorites</Text>
-                <Switch value={setShowOnlyFavorites} onValueChange={onFavroiteChange}/>
-            </View>
+            <Text> Hello Lifecycle</Text>
+            <Text>Number {number}</Text>
 
-            <FlatList
-            data = {cafeList}
-            renderItem = {({item}) => <Text>{item.name}</Text>}
-            />
+            <Button title ="Up" onPress={() => setNumber(number + 1)}></Button>
+
+            <Text>Counter {counter}</Text>
+            <Button title ="Update Counter" onPress={() => setCounter(counter + 100)}></Button>
         </View>
     );
 }
